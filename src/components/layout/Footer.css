@@ -1,0 +1,101 @@
+/* Footer.css — Estilos del pie de página */
+
+footer {
+  background-color: var(--color-fondo-nav);
+  border-top: 1px solid var(--color-borde);
+  padding: 3rem 2rem 2rem;
+  margin-top: auto;
+}
+
+.footer-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Info de la empresa */
+.footer-empresa {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.footer-empresa h3 {
+  font-size: 1.3rem;
+  color: var(--color-primario);
+  margin-bottom: 0.5rem;
+}
+
+.footer-empresa p {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Título de la sección del equipo */
+.footer-equipo-titulo {
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+/* Grilla de las 3 tarjetas */
+.footer-equipo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 columnas iguales */
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Cada tarjeta de persona */
+.footer-card {
+  background-color: var(--color-fondo-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-card:hover {
+  transform: translateY(-4px);  /* Sube levemente al hacer hover */
+  border-color: var(--color-primario);
+}
+
+.footer-card .avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;        /* Hace la imagen circular */
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+  border: 2px solid var(--color-borde);
+}
+
+.footer-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.footer-card p {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+/* Copyright abajo del todo */
+.footer-copy {
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 1.5rem;
+}
+
+/* Responsive: en pantallas chicas, las cards se apilan */
+@media (max-width: 600px) {
+  .footer-equipo {
+    grid-template-columns: 1fr;
+  }
+}

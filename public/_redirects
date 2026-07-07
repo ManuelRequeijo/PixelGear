@@ -1,0 +1,6 @@
+/* _redirects — Necesario para que react-router-dom funcione en Netlify.
+   Sin esto, al refrescar la página en cualquier ruta distinta a "/" daría 404.
+   Esto le dice a Netlify: "para cualquier URL, serví siempre index.html
+   y dejá que React maneje el ruteo del lado del cliente." */
+
+/* /index.html 200

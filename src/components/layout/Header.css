@@ -1,0 +1,26 @@
+/* Header.css — Estilos del encabezado */
+
+header {
+  background-color: var(--color-fondo-nav);
+  border-bottom: 1px solid var(--color-borde);
+  padding: 0 2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;    /* Se queda pegado arriba al hacer scroll */
+  top: 0;
+  z-index: 100;        /* Siempre por encima del resto del contenido */
+  box-shadow: var(--sombra);
+}
+
+.header-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primario);
+  letter-spacing: -0.5px;
+}
+
+.header-logo span {
+  color: var(--color-texto);
+}

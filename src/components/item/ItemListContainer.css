@@ -1,0 +1,41 @@
+/* ItemListContainer.css — Estilos del contenedor de productos */
+
+.productos-titulo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.productos-subtitulo {
+  color: var(--color-texto-suave);
+  margin-bottom: 2rem;
+}
+
+/* Grilla de productos: 3 columnas en pantallas grandes */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Mensaje de carga mientras esperamos el fetch */
+.productos-loading {
+  text-align: center;
+  color: var(--color-texto-suave);
+  padding: 4rem;
+  font-size: 1rem;
+}
+
+/* Responsive: 2 columnas en tablets */
+@media (max-width: 900px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: 1 columna en celulares */
+@media (max-width: 550px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,70 @@
+/* index.css — Estilos globales de la aplicación */
+
+/* Importamos la fuente Inter de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* Variables CSS del design system */
+:root {
+  --color-primario: #6c63ff;
+  --color-primario-hover: #574fd6;
+  --color-fondo: #0f0f13;
+  --color-fondo-card: #1a1a24;
+  --color-fondo-nav: #13131a;
+  --color-texto: #e8e8f0;
+  --color-texto-suave: #9090aa;
+  --color-borde: #2a2a3a;
+  --radio-borde: 12px;
+  --sombra: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+/* Reset básico */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Override Bootstrap dark mode para nuestras variables */
+.container, .container-fluid, .container-xl {
+  --bs-gutter-x: 1.5rem;
+}
+
+/* Links sin subrayado por defecto */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* El contenido principal entre el header y footer */
+main {
+  min-height: calc(100vh - 140px);
+  padding: 0;
+}
+
+/* Spinner global reutilizable */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--color-borde);
+  border-top-color: var(--color-primario);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-fondo); }
+::-webkit-scrollbar-thumb { background: var(--color-borde); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primario); }

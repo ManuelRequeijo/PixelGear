@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Teclado Mecánico RGB",
+    "precio": 45000,
+    "categoria": "periféricos",
+    "imagen": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400",
+    "descripcion": "Switches Cherry MX Red, retroiluminación RGB personalizable y estructura de aluminio. Respuesta táctil perfecta para gaming y programación."
+  },
+  {
+    "id": 2,
+    "nombre": "Mouse de Oficina",
+    "precio": 12000,
+    "categoria": "periféricos",
+    "imagen": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
+    "descripcion": "Sensor óptico de 16.000 DPI, 7 botones programables y diseño ergonómico. Precisión milimétrica para cada partida."
+  },
+  {
+    "id": 3,
+    "nombre": "Headset 7.1 Surround",
+    "precio": 32000,
+    "categoria": "audio",
+    "imagen": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400",
+    "descripcion": "Sonido envolvente 7.1, micrófono con cancelación de ruido y almohadillas de espuma viscoelástica. Escuchá cada paso del enemigo."
+  },
+  {
+    "id": 4,
+    "nombre": "Monitor 1080p 120Hz",
+    "precio": 210000,
+    "categoria": "pantallas",
+    "imagen": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400",
+    "descripcion": "Panel IPS 1080p con 120Hz de refresh rate y 2ms de tiempo de respuesta. Colores vibrantes y cero ghosting garantizado."
+  },
+  {
+    "id": 5,
+    "nombre": "Webcam 4K Streamer",
+    "precio": 55000,
+    "categoria": "streaming",
+    "imagen": "https://images.unsplash.com/photo-1626581795188-8efb9a00eeec?w=400",
+    "descripcion": "Resolución 4K a 60fps, corrección automática de luz y campo visual de 90°. Para streamers que no aceptan menos que lo mejor."
+  },
+  {
+    "id": 6,
+    "nombre": "Silla Gamer Pro",
+    "precio": 95000,
+    "categoria": "setup",
+    "imagen": "https://images.unsplash.com/photo-1770195483917-b3bb444b7a29?w=400",
+    "descripcion": "Soporte lumbar ajustable, reposabrazos 4D y reclinación de hasta 180°. Horas de gaming sin dolor de espalda."
+  }
+]

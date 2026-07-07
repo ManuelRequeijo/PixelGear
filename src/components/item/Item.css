@@ -1,0 +1,67 @@
+/* Item.css — Estilos de la tarjeta de producto */
+
+.item-card {
+  background-color: var(--color-fondo-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  overflow: hidden;                        /* La imagen no se sale de la tarjeta */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.item-card:hover {
+  transform: translateY(-6px);            /* Sube al hacer hover */
+  box-shadow: 0 12px 32px rgba(108, 99, 255, 0.2);
+  border-color: var(--color-primario);
+}
+
+.item-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;                       /* La imagen cubre el área sin deformarse */
+}
+
+.item-info {
+  padding: 1rem;
+}
+
+.item-categoria {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primario);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.item-nombre {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.item-precio {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.item-btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem;
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.item-btn:hover {
+  background-color: var(--color-primario-hover);
+}

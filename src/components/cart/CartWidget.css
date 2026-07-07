@@ -1,0 +1,26 @@
+/* CartWidget.css — Estilos del ícono del carrito */
+
+.cart-widget {
+  position: relative;   /* Necesario para posicionar el badge encima */
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+/* El número rojo/violeta encima del carrito */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: var(--color-primario);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;           /* Lo hace circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

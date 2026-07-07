@@ -1,0 +1,24 @@
+/* NavBar.css — Estilos de la barra de navegación */
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Cada link del nav */
+.nav-link {
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;  /* Animación suave al hacer hover */
+}
+
+.nav-link:hover {
+  color: var(--color-texto);
+  background-color: var(--color-borde);
+}
+
+
