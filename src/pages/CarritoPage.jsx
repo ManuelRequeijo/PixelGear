@@ -115,7 +115,7 @@ function CarritoPage() {
   return (
     <>
       <Helmet>
-        <title>Mi Carrito ({totalItems}) — PixelGear</title>
+        <title>{`Mi Carrito (${totalItems}) — PixelGear`}</title>
       </Helmet>
       <Page>
         <Titulo>Mi <span>Carrito</span></Titulo>
