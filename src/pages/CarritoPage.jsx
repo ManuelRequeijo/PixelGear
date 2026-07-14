@@ -1,8 +1,16 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { Helmet } from "react-helmet-async"
 import styled, { keyframes } from "styled-components"
-import { FiTrash2, FiPlus, FiMinus, FiShoppingBag, FiArrowLeft } from "react-icons/fi"
+import { FiTrash2, FiPlus, FiMinus, FiShoppingBag, FiArrowLeft, FiTag, FiCheck, FiX } from "react-icons/fi"
+
+// Cupones válidos: código → porcentaje de descuento
+const CUPONES = {
+  PIXEL10: 10,
+  GEAR20: 20,
+  PROMO15: 15,
+}
 
 const fadeIn = keyframes`from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); }`
 
@@ -62,12 +70,69 @@ const ResumenFila = styled.div`
   color: var(--color-texto-suave); font-size: 0.9rem;
 `
 
+const ResumenDescuento = styled(ResumenFila)`
+  color: #2ecc71;
+`
+
 const ResumenTotal = styled.div`
   display: flex; justify-content: space-between; font-weight: 800;
   font-size: 1.2rem; border-top: 1px solid var(--color-borde); padding-top: 0.75rem;
   margin-top: 0.5rem; color: var(--color-texto);
   span:last-child { color: var(--color-primario); }
 `
+
+// ── Cupón ─────────────────────────────────────────────────────────────────────
+
+const CuponWrapper = styled.div`
+  margin-bottom: 1.2rem; padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--color-borde);
+`
+
+const CuponRow = styled.div`
+  display: flex; gap: 8px;
+`
+
+const CuponInput = styled.input`
+  flex: 1; padding: 0.6rem 1rem;
+  background: var(--color-fondo); border: 1px solid var(--color-borde);
+  border-radius: 10px; color: var(--color-texto); font-size: 0.9rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  transition: border 0.2s;
+  &:focus { outline: none; border-color: var(--color-primario); }
+  &::placeholder { text-transform: none; letter-spacing: 0; color: var(--color-texto-suave); }
+`
+
+const CuponBtn = styled.button`
+  padding: 0.6rem 1.1rem; background: var(--color-primario); color: #fff;
+  border: none; border-radius: 10px; font-weight: 700; cursor: pointer;
+  font-size: 0.9rem; transition: background 0.2s;
+  &:hover { background: var(--color-primario-hover); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+`
+
+const CuponMensaje = styled.p`
+  margin-top: 0.5rem; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+  color: ${(p) => (p.$ok ? "#2ecc71" : "#e74c3c")};
+`
+
+const CuponActivo = styled.div`
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.25);
+  border-radius: 10px; padding: 0.5rem 0.9rem; margin-top: 0.6rem;
+`
+
+const CuponActivoTexto = styled.span`
+  font-size: 0.85rem; color: #2ecc71; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+`
+
+const CuponRemoveBtn = styled.button`
+  background: none; border: none; color: #2ecc71; cursor: pointer;
+  display: flex; align-items: center; opacity: 0.7;
+  &:hover { opacity: 1; }
+`
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const BtnRow = styled.div`display: flex; gap: 10px; margin-top: 1.2rem; flex-wrap: wrap;`
 
@@ -92,6 +157,32 @@ const Vacio = styled.div`
 
 function CarritoPage() {
   const { carrito, addToCart, removeFromCart, deleteFromCart, clearCart, totalItems, totalPrecio } = useCart()
+
+  const [codigoCupon, setCodigoCupon] = useState("")
+  const [cuponAplicado, setCuponAplicado] = useState(null) // { codigo, descuento }
+  const [mensajeCupon, setMensajeCupon] = useState(null)   // { texto, ok }
+
+  const aplicarCupon = () => {
+    const codigo = codigoCupon.trim().toUpperCase()
+    if (cuponAplicado) return
+
+    if (CUPONES[codigo]) {
+      setCuponAplicado({ codigo, descuento: CUPONES[codigo] })
+      setMensajeCupon({ texto: `Cupón aplicado: ${CUPONES[codigo]}% de descuento`, ok: true })
+      setCodigoCupon("")
+    } else {
+      setMensajeCupon({ texto: "Cupón inválido. Revisá el código.", ok: false })
+    }
+  }
+
+  const quitarCupon = () => {
+    setCuponAplicado(null)
+    setMensajeCupon(null)
+    setCodigoCupon("")
+  }
+
+  const montoDescuento = cuponAplicado ? Math.round(totalPrecio * cuponAplicado.descuento / 100) : 0
+  const totalFinal = totalPrecio - montoDescuento
 
   if (carrito.length === 0) {
     return (
@@ -145,18 +236,69 @@ function CarritoPage() {
         ))}
 
         <Resumen>
+          {/* Sección de cupón */}
+          <CuponWrapper>
+            {!cuponAplicado ? (
+              <>
+                <CuponRow>
+                  <CuponInput
+                    id="input-cupon"
+                    placeholder="Tenés un cupón de descuento?"
+                    value={codigoCupon}
+                    onChange={(e) => {
+                      setCodigoCupon(e.target.value)
+                      setMensajeCupon(null)
+                    }}
+                    onKeyDown={(e) => e.key === "Enter" && aplicarCupon()}
+                  />
+                  <CuponBtn onClick={aplicarCupon} disabled={!codigoCupon.trim()}>
+                    <FiTag size={14} style={{ marginRight: 4 }} />
+                    Aplicar
+                  </CuponBtn>
+                </CuponRow>
+                {mensajeCupon && (
+                  <CuponMensaje $ok={mensajeCupon.ok}>
+                    {mensajeCupon.ok ? <FiCheck /> : <FiX />}
+                    {mensajeCupon.texto}
+                  </CuponMensaje>
+                )}
+              </>
+            ) : (
+              <CuponActivo>
+                <CuponActivoTexto>
+                  <FiTag />
+                  {cuponAplicado.codigo} — {cuponAplicado.descuento}% OFF
+                </CuponActivoTexto>
+                <CuponRemoveBtn onClick={quitarCupon} aria-label="Quitar cupón">
+                  <FiX size={16} />
+                </CuponRemoveBtn>
+              </CuponActivo>
+            )}
+          </CuponWrapper>
+
+          {/* Totales */}
           <ResumenFila>
             <span>Subtotal ({totalItems} {totalItems === 1 ? "ítem" : "ítems"})</span>
             <span>${totalPrecio.toLocaleString()}</span>
           </ResumenFila>
+
+          {cuponAplicado && (
+            <ResumenDescuento>
+              <span>Descuento ({cuponAplicado.descuento}%)</span>
+              <span>− ${montoDescuento.toLocaleString()}</span>
+            </ResumenDescuento>
+          )}
+
           <ResumenFila>
             <span>Envío</span>
             <span>A calcular</span>
           </ResumenFila>
+
           <ResumenTotal>
             <span>Total</span>
-            <span>${totalPrecio.toLocaleString()}</span>
+            <span>${totalFinal.toLocaleString()}</span>
           </ResumenTotal>
+
           <BtnRow>
             <BtnGhost as={Link} to="/productos">
               <FiArrowLeft /> Seguir comprando

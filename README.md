@@ -17,6 +17,16 @@ Para probar el panel de administración:
 
 Entrando con esas credenciales en `/login` se puede acceder al panel admin donde se pueden agregar, editar y eliminar productos.
 
+## Cupones de descuento
+
+En la página del carrito hay un campo para ingresar cupones:
+
+| Código    | Descuento |
+| --------- | --------- |
+| `PIXEL10` | 10% off   |
+| `GEAR20`  | 20% off   |
+| `PROMO15` | 15% off   |
+
 ---
 
 ## Tecnologías
