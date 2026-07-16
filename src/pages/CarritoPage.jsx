@@ -2,15 +2,12 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { Helmet } from "react-helmet-async"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../firebase/config"
 import styled, { keyframes } from "styled-components"
 import { FiTrash2, FiPlus, FiMinus, FiShoppingBag, FiArrowLeft, FiTag, FiCheck, FiX } from "react-icons/fi"
 
-// Cupones válidos: código → porcentaje de descuento
-const CUPONES = {
-  PIXEL10: 10,
-  GEAR20: 20,
-  PROMO15: 15,
-}
+
 
 const fadeIn = keyframes`from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); }`
 
@@ -162,16 +159,22 @@ function CarritoPage() {
   const [cuponAplicado, setCuponAplicado] = useState(null) // { codigo, descuento }
   const [mensajeCupon, setMensajeCupon] = useState(null)   // { texto, ok }
 
-  const aplicarCupon = () => {
+  const aplicarCupon = async () => {
     const codigo = codigoCupon.trim().toUpperCase()
-    if (cuponAplicado) return
-
-    if (CUPONES[codigo]) {
-      setCuponAplicado({ codigo, descuento: CUPONES[codigo] })
-      setMensajeCupon({ texto: `Cupón aplicado: ${CUPONES[codigo]}% de descuento`, ok: true })
-      setCodigoCupon("")
-    } else {
-      setMensajeCupon({ texto: "Cupón inválido. Revisá el código.", ok: false })
+    if (!codigo || cuponAplicado) return
+    setMensajeCupon(null)
+    try {
+      const snap = await getDocs(collection(db, "cupones"))
+      const encontrado = snap.docs.map(d => d.data()).find(c => c.codigo === codigo)
+      if (encontrado) {
+        setCuponAplicado({ codigo, descuento: encontrado.descuento })
+        setMensajeCupon({ texto: `Cupón aplicado: ${encontrado.descuento}% de descuento`, ok: true })
+        setCodigoCupon("")
+      } else {
+        setMensajeCupon({ texto: "Cupón inválido. Revisá el código.", ok: false })
+      }
+    } catch {
+      setMensajeCupon({ texto: "Error al validar el cupón. Intentá de nuevo.", ok: false })
     }
   }
 
